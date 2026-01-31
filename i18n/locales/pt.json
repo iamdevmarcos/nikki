@@ -2,17 +2,12 @@
   "home": {
     "title": "Nikki",
     "subtitle": "Aoba Inter Bold",
-    "theme_label": "Tema: {{theme}}",
     "default_font": "Inter Regular (Padrão)",
     "go_to_login": "Ir para Login",
     "new_note": "Nova Nota",
-    "container_text": "Este card usa a cor 'secondary' do tema.",
-    "themes": {
-      "light": "Claro",
-      "dark": "Escuro",
-      "system": "Sistema"
-    }
+    "container_text": "Este card usa a cor 'secondary' do tema."
   },
+
   "login": {
     "welcome": "Bem-vindo de volta",
     "sign_in": "Entrar",

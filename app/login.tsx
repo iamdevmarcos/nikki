@@ -1,4 +1,3 @@
-import { useTheme } from "@/theme/ThemeContext";
 import { useOAuth } from "@clerk/clerk-expo";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -12,7 +11,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
-  const { isDark } = useTheme();
   const { t } = useTranslation();
 
   const { startOAuthFlow: startGoogleFlow } = useOAuth({ strategy: "oauth_google" });
@@ -59,7 +57,7 @@ export default function LoginScreen() {
   }, [startDiscordFlow]);
 
   return (
-    <SafeAreaView className="flex-1 bg-black">
+    <SafeAreaView className="flex-1 bg-background">
       <StatusBar barStyle={'light-content'} />
       <View className="flex-1 p-6">
         <View className="items-center mt-4">

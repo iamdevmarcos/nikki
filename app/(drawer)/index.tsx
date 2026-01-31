@@ -1,31 +1,18 @@
 import Header from "@/components/Header";
 import { useTheme } from "@/theme/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Index() {
-  const { theme, setTheme, isDark, colors } = useTheme();
+  const { isDark, colors } = useTheme();
   const { t, i18n } = useTranslation();
   const router = useRouter();
-
-  const toggleTheme = () => {
-    if (theme === "light") setTheme("dark");
-    else if (theme === "dark") setTheme("system");
-    else setTheme("light");
-  };
 
   const toggleLanguage = () => {
     const nextLang = i18n.language === "en" ? "pt" : "en";
     i18n.changeLanguage(nextLang);
-  };
-
-  const getThemeIcon = () => {
-    if (theme === "light") return "sunny";
-    if (theme === "dark") return "moon";
-    return "contrast";
   };
 
   return (
@@ -45,17 +32,6 @@ export default function Index() {
               {i18n.language.toUpperCase()}
             </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={toggleTheme}
-            className="p-3 rounded-full bg-secondary"
-          >
-            <Ionicons
-              name={getThemeIcon()}
-              size={24}
-              color={colors.foreground}
-            />
-          </TouchableOpacity>
         </View>
 
         <View>
@@ -64,11 +40,6 @@ export default function Index() {
           </Text>
           <Text className="text-foreground text-center text-3xl font-bold">
             {t("home.subtitle")}
-          </Text>
-          <Text className="text-muted-foreground text-center text-xl font-semibold">
-            {t("home.theme_label", {
-              theme: t(`home.themes.${theme}`),
-            })}
           </Text>
           <Text className="text-muted-foreground text-center text-lg italic mt-4">
             {t("home.default_font")}
@@ -99,7 +70,7 @@ export default function Index() {
           </Text>
         </View>
       </View>
-
     </SafeAreaView >
   );
 }
+

@@ -67,6 +67,10 @@ export default function DrawerLayout() {
         drawerActiveBackgroundColor: activeBackgroundColor,
         drawerStyle: {
           backgroundColor: colors.background,
+          borderLeftWidth: 1,
+          borderLeftColor: '#f5f5f5',
+          borderTopLeftRadius: 20,
+          borderBottomLeftRadius: 20,
         },
         drawerLabelStyle: {
           fontSize: 16,

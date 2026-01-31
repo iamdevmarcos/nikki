@@ -2,17 +2,12 @@
   "home": {
     "title": "Nikki",
     "subtitle": "Aoba Inter Bold",
-    "theme_label": "Theme: {{theme}}",
     "default_font": "Inter Regular (Default)",
     "go_to_login": "Go to Login",
     "new_note": "New Note",
-    "container_text": "This container uses the 'secondary' theme color.",
-    "themes": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    }
+    "container_text": "This container uses the 'secondary' theme color."
   },
+
   "login": {
     "welcome": "Welcome back",
     "sign_in": "Sign in",
