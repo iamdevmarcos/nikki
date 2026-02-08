@@ -1,5 +1,5 @@
 import LoadingScreen from "@/components/LoadingScreen";
 
 export default function OAuthNativeCallback() {
-  return <LoadingScreen />;
+  return <LoadingScreen hideTexts />;
 }

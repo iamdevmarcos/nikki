@@ -70,7 +70,7 @@ function InitialLayout() {
   }, [isLoaded]);
 
   if (!isLoaded) {
-    return <LoadingScreen />;
+    return <LoadingScreen hideTexts />;
   }
 
   return (

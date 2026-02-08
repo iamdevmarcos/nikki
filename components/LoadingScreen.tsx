@@ -4,7 +4,7 @@ import { ActivityIndicator, Text } from "react-native";
 import Animated, { FadeInDown, FadeOutUp } from 'react-native-reanimated';
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const LoadingScreen = () => {
+const LoadingScreen = ({ hideTexts }: { hideTexts?: boolean }) => {
   const { colors } = useTheme();
 
   const loadingPhrases = [
@@ -28,15 +28,16 @@ const LoadingScreen = () => {
   return (
     <SafeAreaView
       className="flex flex-col bg-black gap-6 items-center justify-center align-center h-screen">
-      <ActivityIndicator className="justify-center align-center items-center" size="large" color={colors.background} />
-      <Animated.View 
-        key={currentInfoIndex} 
-        entering={FadeInDown.springify()} 
+      <ActivityIndicator className="justify-center align-center items-center" size="large" color={colors.foreground} />
+
+      {!hideTexts && <Animated.View
+        key={currentInfoIndex}
+        entering={FadeInDown.springify()}
         exiting={FadeOutUp.duration(200)}
         className="items-center flex flex-col gap-1">
-          <Text className="text-white">{currentPhrase.pt}</Text>
-          <Text className="text-xs text-white">"{currentPhrase.jp}"</Text>
-      </Animated.View>
+        <Text className="text-white">{currentPhrase.pt}</Text>
+        <Text className="text-xs text-white">"{currentPhrase.jp}"</Text>
+      </Animated.View>}
     </SafeAreaView>
   );
 };

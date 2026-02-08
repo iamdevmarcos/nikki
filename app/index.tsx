@@ -1,4 +1,5 @@
-import SplashScreen from "@/components/OnBoarding";
+import OnBoarding from "@/components/OnBoarding";
+
 export default function RootIndex() {
-  return <SplashScreen />;
-}
+  return <OnBoarding />;
+} 

@@ -95,9 +95,9 @@ export default function NewNote() {
 
           <TouchableOpacity
             onPress={handleBack}
-            className="w-12 h-12 rounded-full bg-secondary items-center justify-center border border-border/10"
+            className="w-12 h-12 rounded-full bg-hunyadi-yellow items-center justify-center border border-border/10"
           >
-            <Ionicons name="checkmark" size={24} color="white" />
+            <Ionicons name="checkmark" size={24} color="black" />
           </TouchableOpacity>
         </View>
 

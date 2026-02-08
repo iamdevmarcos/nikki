@@ -27,6 +27,9 @@ module.exports = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        "cadet-gray": "hsl(var(--cadet-gray))",
+        "rich-black": "hsl(var(--rich-black))",
+        "hunyadi-yellow": "hsl(var(--hunyadi-yellow))",
       },
       fontFamily: {
         sans: ["Inter_400Regular"],

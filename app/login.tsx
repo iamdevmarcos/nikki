@@ -2,19 +2,17 @@ import { useOAuth } from "@clerk/clerk-expo";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Linking from "expo-linking";
+import { useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from "react-native";
-import { useRouter } from "expo-router";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
   const { t } = useTranslation();
-
   const router = useRouter();
 
   const { startOAuthFlow: startGoogleFlow } = useOAuth({ strategy: "oauth_google" });
@@ -61,7 +59,7 @@ export default function LoginScreen() {
   }, [startDiscordFlow]);
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView className="flex-1 bg-black">
       <StatusBar barStyle={'light-content'} />
       <View className="flex-1 p-6">
         <View className="items-center mt-4">
@@ -75,7 +73,7 @@ export default function LoginScreen() {
             resizeMode="contain"
           />
           <LinearGradient
-            colors={['transparent', 'rgba(0,0,0,0.8)', 'black']}
+            colors={['transparent', 'rgba(7,16,17,0.8)', '#071011']}
             className="absolute bottom-0 left-0 right-0 h-40"
           />
         </View>
@@ -84,20 +82,16 @@ export default function LoginScreen() {
           <View className="gap-3">
             <SocialLoginButton icon="google" text={t("login.continue_with_google")} onPress={onGooglePress} />
             <SocialLoginButton icon="facebook" text={t("login.continue_with_facebook")} onPress={onFacebookPress} />
-            <SocialLoginButton text={t("login.continue_with_discord")} onPress={onDiscordPress} customIcon={<MaterialIcons name="discord" size={24} color="black" />} />
+            <SocialLoginButton text={t("login.continue_with_discord")} onPress={onDiscordPress} customIcon={<MaterialIcons name="discord" size={24} color="#071011" />} />
           </View>
 
-          <View className="h-[0.5px] bg-zinc-600 my-8" />
+          <View className="h-[0.5px] bg-cadet-gray my-8" />
 
-          <Text className="font-serif text-zinc-200 text-md text-center leading-relaxed px-8">
+          <Text className="font-serif text-cadet-gray text-md text-center leading-relaxed px-8">
             {t("login.slogan")}
           </Text>
 
         </View>
-           <Button
-            title="DEV: Ver componente"
-            onPress={() => router.push("/dev")}
-            />
       </View>
     </SafeAreaView>
   );
@@ -110,8 +104,8 @@ const SocialLoginButton = ({ icon, customIcon, text, onPress }: { icon?: any, cu
       activeOpacity={0.7}
       onPress={onPress}
     >
-      {customIcon ? customIcon : <FontAwesome name={icon} size={20} color="black" />}
-      <Text className="text-black text-lg font-semibold ml-3 tracking-[-0.2px]">{text}</Text>
+      {customIcon ? customIcon : <FontAwesome name={icon} size={20} color="#071011" />}
+      <Text className="text-richBlack text-lg font-semibold ml-3 tracking-[-0.2px]">{text}</Text>
     </TouchableOpacity>
   );
 }

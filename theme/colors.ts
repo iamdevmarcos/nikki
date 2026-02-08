@@ -11,7 +11,10 @@ export type ColorTheme = Record<
   | "accentForeground"
   | "border"
   | "input"
-  | "ring",
+  | "ring"
+  | "cadet-gray"
+  | "rich-black"
+  | "hunyadi-yellow",
   string
 >;
 
@@ -30,13 +33,16 @@ export const colors: Record<"light" | "dark", ColorTheme> = {
     border: "#cccccc",
     input: "#cccccc",
     ring: "#111111",
+    "cadet-gray": "#91A0AA",
+    "rich-black": "#071011",
+    "hunyadi-yellow": "#e6a835",
   },
   dark: {
-    background: "#111111",
+    background: "#071011",
     foreground: "#ffffff",
     primary: "#ffffff",
-    primaryForeground: "#111111",
-    secondary: "#111111",
+    primaryForeground: "#071011",
+    secondary: "#071011",
     secondaryForeground: "#ffffff",
     muted: "#262626",
     mutedForeground: "#a3a3a3",
@@ -45,5 +51,8 @@ export const colors: Record<"light" | "dark", ColorTheme> = {
     border: "#333333",
     input: "#333333",
     ring: "#ffffff",
+    "cadet-gray": "#91A0AA",
+    "rich-black": "#071011",
+    "hunyadi-yellow": "#e6a835",
   },
 };
