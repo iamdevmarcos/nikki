@@ -7,7 +7,7 @@ import * as WebBrowser from "expo-web-browser";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 WebBrowser.maybeCompleteAuthSession();
 
