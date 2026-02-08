@@ -7,11 +7,15 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button } from "react-native";
+import { useRouter } from "expo-router";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
   const { t } = useTranslation();
+
+  const router = useRouter();
 
   const { startOAuthFlow: startGoogleFlow } = useOAuth({ strategy: "oauth_google" });
   const { startOAuthFlow: startFacebookFlow } = useOAuth({ strategy: "oauth_facebook" });
@@ -88,7 +92,12 @@ export default function LoginScreen() {
           <Text className="font-serif text-zinc-200 text-md text-center leading-relaxed px-8">
             {t("login.slogan")}
           </Text>
+
         </View>
+           <Button
+            title="DEV: Ver componente"
+            onPress={() => router.push("/dev")}
+            />
       </View>
     </SafeAreaView>
   );

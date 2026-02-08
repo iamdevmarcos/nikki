@@ -1,29 +1,43 @@
 import { useTheme } from "@/theme/ThemeContext";
-import React from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, Text } from "react-native";
+import Animated, { FadeInDown, FadeOutUp } from 'react-native-reanimated';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const LoadingScreen = () => {
   const { colors } = useTheme();
 
+  const loadingPhrases = [
+    { pt: "Preparando seu dia", jp: "一日を準備中" },
+    { pt: "Organizando ideias", jp: "アイデアを整理中" },
+    { pt: "Respirando fundo", jp: "深呼吸して" },
+  ];
+
+  const [currentInfoIndex, setCurrentInfoIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentInfoIndex((prevIndex) => (prevIndex + 1) % loadingPhrases.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentPhrase = loadingPhrases[currentInfoIndex];
+
   return (
-    <View
-      className="flex-1 justify-center items-center"
-      style={{ backgroundColor: colors.background }}
-    >
-      <View className="mb-8 items-center justify-center">
-        <View className="w-20 h-20 rounded-3xl bg-primary items-center justify-center shadow-xl border border-border/10">
-          <Text className="text-primary-foreground text-2xl font-black">N</Text>
-        </View>
-      </View>
-
-      <ActivityIndicator size="small" color={colors.foreground} />
-
-      <Text
-        className="mt-6 text-foreground text-sm font-medium tracking-[2px] uppercase opacity-40"
-      >
-        Carregando
-      </Text>
-    </View>
+    <SafeAreaView
+      className="flex flex-col bg-black gap-6 items-center justify-center align-center h-screen">
+      <ActivityIndicator className="justify-center align-center items-center" size="large" color={colors.background} />
+      <Animated.View 
+        key={currentInfoIndex} 
+        entering={FadeInDown.springify()} 
+        exiting={FadeOutUp.duration(200)}
+        className="items-center flex flex-col gap-1">
+          <Text className="text-white">{currentPhrase.pt}</Text>
+          <Text className="text-xs text-white">"{currentPhrase.jp}"</Text>
+      </Animated.View>
+    </SafeAreaView>
   );
 };
 

@@ -1,5 +1,4 @@
-import LoadingScreen from "@/components/LoadingScreen";
-
+import SplashScreen from "@/components/OnBoarding";
 export default function RootIndex() {
-  return <LoadingScreen />;
+  return <SplashScreen />;
 }
