@@ -5,6 +5,7 @@ import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { useNavigation } from "expo-router";
 import { Image, Pressable, View } from "react-native";
 
+
 const Header = () => {
   const { isDark, colors } = useTheme();
   const { user } = useUser();
