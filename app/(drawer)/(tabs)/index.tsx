@@ -1,32 +1,35 @@
 import Header from "@/components/Header";
 import NoteCard from "@/components/NoteCard";
+import { useNotes } from "@/hooks/useNotes";
 import { useTranslation } from "react-i18next";
-import {
-  ScrollView,
-  View
-} from "react-native";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
+  const { notes } = useNotes();
+
   const { t, i18n } = useTranslation();
 
   const toggleLanguage = () => {
-    const nextLang = i18n.language === 'en' ? 'pt' : 'en';
+    const nextLang = i18n.language === "en" ? "pt" : "en";
     i18n.changeLanguage(nextLang);
   };
 
   const today = new Date();
-  const formattedDate = today.toLocaleDateString(i18n.language === 'pt' ? 'pt-BR' : 'en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
-  });
+  const formattedDate = today.toLocaleDateString(
+    i18n.language === "pt" ? "pt-BR" : "en-US",
+    {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    },
+  );
 
   return (
     <SafeAreaView
       style={{ flex: 1 }}
       className="bg-background"
-      edges={['top', 'bottom']}
+      edges={["top", "bottom"]}
     >
       <Header />
 
@@ -68,16 +71,16 @@ export default function Index() {
         </View> */}
 
         <View className="gap-4">
-          {Array.from({ length: 20 }).map((_, index) => (
+          {notes?.map((note) => (
             <NoteCard
-              key={index}
-              title={`Nota Mockada #${index + 1}`}
-              description={`Esta é a descrição da nota número ${index + 1}. Aqui podemos ver como o texto se comporta com o limite de linhas definido no componente NoteCard.`}
-              createdAt={`${25 - (index % 28)} Fev`}
+              key={note.id}
+              title={note.title}
+              description={note.content}
+              createdAt={new Date(note.createdAt).toLocaleString()}
             />
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView >
+    </SafeAreaView>
   );
 }

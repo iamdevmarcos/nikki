@@ -16,6 +16,9 @@ import {
   Merriweather_700Bold,
   Merriweather_900Black,
 } from "@expo-google-fonts/merriweather";
+import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
+import { db } from "../db/client";
+import migrations from "../db/migrations/migrations";
 
 import { Stack, useRouter, useSegments } from "expo-router";
 import * as SecureStore from "expo-secure-store";
@@ -28,6 +31,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import "@/global.css";
 import "@/i18n";
 import { ThemeProvider } from "@/theme/ThemeContext";
+import { Text } from "react-native";
 
 const tokenCache = {
   async getToken(key: string) {
@@ -63,7 +67,12 @@ function InitialLayout() {
 
     if (isSignedIn && !inAuthGroup) {
       router.replace("/(drawer)/(tabs)");
-    } else if (!isSignedIn && segments[0] !== "login" && segments[0] !== "onboarding" && !isCallbackPage) {
+    } else if (
+      !isSignedIn &&
+      segments[0] !== "login" &&
+      segments[0] !== "onboarding" &&
+      !isCallbackPage
+    ) {
       router.replace("/login");
     }
   }, [isSignedIn, isLoaded]);
@@ -82,13 +91,16 @@ function InitialLayout() {
       <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
       <Stack.Screen name="login" options={{ headerShown: false }} />
       <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-      <Stack.Screen name="oauth-native-callback" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="oauth-native-callback"
+        options={{ headerShown: false }}
+      />
     </Stack>
   );
 }
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
+  const [loaded, fontError] = useFonts({
     Inter_100Thin,
     Inter_200ExtraLight,
     Inter_300Light,
@@ -103,15 +115,31 @@ export default function RootLayout() {
     Merriweather_900Black,
   });
 
-  if (!loaded && !error) {
+  const { success: migrationSuccess, error: dbError } = useMigrations(
+    db,
+    migrations,
+  );
+
+  if (!loaded && !fontError) {
     return null;
+  }
+
+  if (fontError || dbError) {
+    return <Text>Error: {fontError?.message || dbError?.message}</Text>;
+  }
+
+  if (!migrationSuccess) {
+    return <LoadingScreen />;
   }
 
   return (
     <ThemeProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <SafeAreaProvider>
-          <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
+          <ClerkProvider
+            tokenCache={tokenCache}
+            publishableKey={publishableKey}
+          >
             <ClerkLoaded>
               <InitialLayout />
             </ClerkLoaded>
