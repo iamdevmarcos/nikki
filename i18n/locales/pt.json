@@ -23,7 +23,23 @@
     "note_to_self_quote": "\"Feito é melhor que perfeito.\"",
     "note_to_self_label": "Lembrete pessoal"
   },
-
+  "empty_state": {
+    "title": "Sua mente está limpa",
+    "description": "Comece a capturar seus pensamentos e reflexões agora mesmo.",
+    "button": "Criar minha primeira nota",
+    "filtered_title": "Nada por aqui ainda",
+    "filtered_description": "Não existem notas registradas para este dia."
+  },
+  "delete_note": {
+    "title": "Excluir Nota",
+    "message": "Tem certeza que deseja excluir esta nota? Esta ação não pode ser desfeita."
+  },
+  "search": {
+    "title": "Buscar",
+    "placeholder": "Buscar notas...",
+    "no_results": "Nenhuma nota encontrada.",
+    "start_typing": "Busque por título ou conteúdo"
+  },
   "login": {
     "welcome": "Bem-vindo de volta",
     "sign_in": "Entrar",
@@ -41,11 +57,16 @@
     "mic_permission_message": "Por favor, permita o acesso ao microfone para usar a transcrição.",
     "mic_permission_blocked": "A permissão está bloqueada. Por favor, ative-a nas configurações do sistema.",
     "mic_unavailable_title": "Recurso Indisponível",
-    "mic_unavailable_message": "O reconhecimento de voz não está disponível neste dispositivo."
+    "mic_unavailable_message": "O reconhecimento de voz não está disponível neste dispositivo.",
+    "tap_to_speak": "Transcrever",
+    "listening": "Ouvindo..."
   },
   "common": {
     "error": "Erro",
+    "success": "Sucesso",
     "cancel": "Cancelar",
+    "delete": "Excluir",
+    "continue": "Continuar",
     "open_settings": "Abrir Configurações"
   },
   "settings": {
@@ -76,5 +97,24 @@
     "greeting": "Olá! Aqui é",
     "minds_behind": "Somos as mentes por trás do Nikki. Esperamos que esteja gostando da experiência!",
     "call_to_action": "Sinta-se à vontade para nos seguir para as últimas atualizações!"
+  },
+  "data_backup": {
+    "title": "Seus Dados",
+    "description": "Exporte suas notas para um arquivo de backup ou restaure uma versão anterior.",
+    "export_title": "Exportar Notas",
+    "export_description": "Cria um arquivo JSON com todas as suas notas atuais.",
+    "export_empty": "Você ainda não possui nenhuma nota para exportar.",
+    "import_title": "Importar Notas",
+    "import_description": "Carrega notas de um arquivo de backup JSON criado anteriormente.",
+    "export_success": "Notas exportadas com sucesso!",
+    "import_success": "Notas importadas com sucesso!",
+    "import_success_redirect": "Vamos redirecionar você agora para a tela inicial para ver suas notas.",
+    "import_error": "Arquivo inválido ou erro na importação.",
+    "import_confirm_title": "Importar Notas?",
+    "import_confirm_message": "Isso pode criar duplicatas se as notas já existirem. Deseja continuar?",
+    "sharing_unavailable": "O compartilhamento não está disponível neste dispositivo",
+    "export_error": "Falha ao exportar notas",
+    "privacy_title": "Privacidade em Primeiro Lugar",
+    "privacy_description": "Seus backups são locais e privados. O Nikki não armazena suas notas em servidores externos a menos que você configure uma conta de sincronização."
   }
 }

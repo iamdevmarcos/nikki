@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -14,6 +14,7 @@ const DECORATION_SMALL_SIZE = 96;
 const HomeHero = () => {
   const { t } = useTranslation();
   const [greeting, setGreeting] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const updateGreeting = () => {
@@ -34,6 +35,11 @@ const HomeHero = () => {
     return () => clearInterval(interval);
   }, [t]);
 
+  const handleNewNote = () => {
+    router.push("/new-note");
+  };
+
+
   return (
     <View className="mb-6 rounded-3xl overflow-hidden bg-hunyadi-yellow p-6 shadow-xl shadow-hunyadi-yellow/20">
       <View className="z-10 gap-6">
@@ -46,18 +52,18 @@ const HomeHero = () => {
           </Text>
         </View>
 
-        <Link href="/new-note" asChild>
-          <TouchableOpacity
-            activeOpacity={0.9}
-            className="bg-[#071011] self-start flex-row items-center gap-2 px-6 py-3.5 rounded-2xl shadow-lg"
-          >
-            <Ionicons name="create-outline" size={20} color="white" />
-            <Text className="text-white font-bold text-sm">
-              {t("home.quick_note")}
-            </Text>
-          </TouchableOpacity>
-        </Link>
+        <TouchableOpacity
+          onPress={handleNewNote}
+          activeOpacity={0.9}
+          className="bg-[#071011] self-start flex-row items-center gap-2 px-6 py-3.5 rounded-2xl shadow-lg"
+        >
+          <Ionicons name="create-outline" size={20} color="white" />
+          <Text className="text-white font-bold text-sm">
+            {t("home.quick_note")}
+          </Text>
+        </TouchableOpacity>
       </View>
+
 
       <View
         style={[styles.decorationLarge, { backgroundColor: "rgba(255,255,255,0.2)" }]}

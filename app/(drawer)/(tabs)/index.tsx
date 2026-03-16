@@ -1,29 +1,62 @@
+import EmptyState from "@/components/EmptyState";
 import Header from "@/components/Header";
+import HorizontalCalendar from "@/components/HorizontalCalendar";
 import NoteCard from "@/components/NoteCard";
 import { useNotes } from "@/hooks/useNotes";
+import { useFocusEffect, useRouter } from "expo-router";
+import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
+import { Swipeable } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
-  const { notes } = useNotes();
+  const router = useRouter();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const { notes, refreshNotes, deleteNote, hasAnyNotesGlobally, noteCountsByDate } = useNotes(selectedDate);
+  const activeSwipeableRef = useRef<Swipeable | null>(null);
+  const { t } = useTranslation();
 
-  const { t, i18n } = useTranslation();
+  const handleSwipeOpen = useCallback((swipeable: Swipeable) => {
+    if (activeSwipeableRef.current && activeSwipeableRef.current !== swipeable) {
+      activeSwipeableRef.current.close();
+    }
+    activeSwipeableRef.current = swipeable;
+  }, []);
 
-  const toggleLanguage = () => {
-    const nextLang = i18n.language === "en" ? "pt" : "en";
-    i18n.changeLanguage(nextLang);
+  useFocusEffect(
+    useCallback(() => {
+      refreshNotes();
+    }, [refreshNotes]),
+  );
+
+  const handleEdit = (id: string) => {
+    router.push({
+      pathname: "/new-note",
+      params: { id },
+    });
   };
 
-  const today = new Date();
-  const formattedDate = today.toLocaleDateString(
-    i18n.language === "pt" ? "pt-BR" : "en-US",
-    {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    },
-  );
+  const handleDelete = (id: string) => {
+    Alert.alert(
+      t("delete_note.title"),
+      t("delete_note.message"),
+      [
+        {
+          text: t("common.cancel"),
+          style: "cancel",
+        },
+        {
+          text: t("common.delete"),
+          style: "destructive",
+          onPress: () => deleteNote(id),
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  const hasNotes = notes && notes.length > 0;
 
   return (
     <SafeAreaView
@@ -32,54 +65,36 @@ export default function Index() {
       edges={["top", "bottom"]}
     >
       <Header />
+      <HorizontalCalendar selectedDate={selectedDate} onSelectDate={setSelectedDate} noteCountsByDate={noteCountsByDate} />
 
       <ScrollView
-        className="flex-1 px-6 mt-2"
+        className="flex-1 mt-2"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 160 }}
+        contentContainerStyle={{
+          paddingBottom: 160,
+          flexGrow: 1
+        }}
       >
-        {/* <View className="mb-2 flex-row justify-between items-center">
-          <View className="flex-row items-center gap-3">
-            <Text className="text-xs font-bold uppercase tracking-widest text-[#91A0AA]">
-              {formattedDate}
-            </Text>
-            <TouchableOpacity
-              onPress={toggleLanguage}
-              className="bg-black/5 dark:bg-white/5 px-2 py-1 rounded-md"
-            >
-              <Text className="text-[10px] font-black text-hunyadi-yellow uppercase">
-                {i18n.language.toUpperCase()}
-              </Text>
-            </TouchableOpacity>
+        {!hasNotes ? (
+          <View className="flex-1">
+            <EmptyState isFiltered={hasAnyNotesGlobally} />
           </View>
-          <View className="flex-row items-center gap-4">
-            <Link href="/(drawer)/follow-us" asChild>
-              <TouchableOpacity>
-                <Text className="text-xs font-bold text-[#91A0AA] uppercase tracking-widest">
-                  Follow Us
-                </Text>
-              </TouchableOpacity>
-            </Link>
-            <Link href="/onboarding" asChild>
-              <TouchableOpacity>
-                <Text className="text-xs font-bold text-hunyadi-yellow uppercase tracking-widest">
-                  {t('home.see_onboarding')}
-                </Text>
-              </TouchableOpacity>
-            </Link>
+        ) : (
+          <View className="gap-0">
+            {notes.map((note) => (
+              <NoteCard
+                key={note.id}
+                id={note.id}
+                title={note.title}
+                description={note.content}
+                createdAt={new Date(note.createdAt).toLocaleString()}
+                onDelete={handleDelete}
+                onEdit={handleEdit}
+                onSwipeableWillOpen={handleSwipeOpen}
+              />
+            ))}
           </View>
-        </View> */}
-
-        <View className="gap-4">
-          {notes?.map((note) => (
-            <NoteCard
-              key={note.id}
-              title={note.title}
-              description={note.content}
-              createdAt={new Date(note.createdAt).toLocaleString()}
-            />
-          ))}
-        </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

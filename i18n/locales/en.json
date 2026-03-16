@@ -23,7 +23,23 @@
     "note_to_self_quote": "\"Done is better than perfect.\"",
     "note_to_self_label": "Note to self"
   },
-
+  "empty_state": {
+    "title": "Your mind is clear",
+    "description": "Start capturing your thoughts and reflections right now.",
+    "button": "Create my first note",
+    "filtered_title": "Nothing here yet",
+    "filtered_description": "There are no entries for this specific day."
+  },
+  "delete_note": {
+    "title": "Delete Note",
+    "message": "Are you sure you want to delete this note? This action cannot be undone."
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search notes...",
+    "no_results": "No notes found matching your search.",
+    "start_typing": "Search by title or content"
+  },
   "login": {
     "welcome": "Welcome back",
     "sign_in": "Sign in",
@@ -41,11 +57,16 @@
     "mic_permission_message": "Please allow microphone access to use transcription.",
     "mic_permission_blocked": "Permission is blocked. Please enable it in the system settings.",
     "mic_unavailable_title": "Feature Unavailable",
-    "mic_unavailable_message": "Speech recognition is not available on this device."
+    "mic_unavailable_message": "Speech recognition is not available on this device.",
+    "tap_to_speak": "Transcript",
+    "listening": "Listening..."
   },
   "common": {
     "error": "Error",
+    "success": "Success",
     "cancel": "Cancel",
+    "delete": "Delete",
+    "continue": "Continue",
     "open_settings": "Open Settings"
   },
   "settings": {
@@ -76,5 +97,24 @@
     "greeting": "Hey there! This is",
     "minds_behind": "We're the minds behind Nikki. We hope you're enjoying the experience!",
     "call_to_action": "Feel free to follow us for the latest updates!"
+  },
+  "data_backup": {
+    "title": "Your Data",
+    "description": "Export your notes to a backup file or restore a previous version.",
+    "export_title": "Export Notes",
+    "export_description": "Creates a JSON file with all your current notes.",
+    "export_empty": "You don't have any notes to export yet.",
+    "import_title": "Import Notes",
+    "import_description": "Load notes from a previously created JSON backup file.",
+    "export_success": "Notes exported successfully!",
+    "import_success": "Notes imported successfully!",
+    "import_success_redirect": "We will now redirect you to the home page to see your notes.",
+    "import_error": "Invalid file or error during import.",
+    "import_confirm_title": "Import Notes?",
+    "import_confirm_message": "This might create duplicates if notes already exist. Do you want to continue?",
+    "sharing_unavailable": "Sharing is not available on this device",
+    "export_error": "Failed to export notes",
+    "privacy_title": "Privacy First",
+    "privacy_description": "Your backups are local and private. Nikki does not store your notes on external servers unless you set up a sync account."
   }
 }

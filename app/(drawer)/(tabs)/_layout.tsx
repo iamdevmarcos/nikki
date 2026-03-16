@@ -1,7 +1,9 @@
 import { useTheme } from "@/theme/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
+
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
+
 
 const TAB_BAR_HEIGHT_IOS = 88;
 const TAB_BAR_HEIGHT_ANDROID = 70;
@@ -14,6 +16,7 @@ const FAB_TOP_OFFSET = -20;
 
 export default function TabsLayout() {
   const { colors, isDark } = useTheme();
+  const router = useRouter();
 
   return (
     <Tabs
@@ -69,15 +72,20 @@ export default function TabsLayout() {
               {...props}
               activeOpacity={0.8}
               style={[props.style, styles.fabWrapper]}
+              onPress={() => {
+                router.push("/new-note");
+              }}
             />
           ),
+
         }}
       />
+
       <Tabs.Screen
-        name="calendar"
+        name="follow-us"
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="calendar-outline" size={26} color={color} />
+            <Ionicons name="people-outline" size={26} color={color} />
           ),
         }}
       />
@@ -85,7 +93,7 @@ export default function TabsLayout() {
         name="profile"
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="person" size={26} color={color} />
+            <Ionicons name="server-outline" size={26} color={color} />
           ),
         }}
       />

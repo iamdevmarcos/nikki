@@ -9,7 +9,7 @@ import { Alert, View } from "react-native";
 
 function CustomDrawerContent(props: any) {
   const { signOut } = useAuth();
-  const { colors, isDark } = useTheme();
+  const { colors } = useTheme();
   const { t } = useTranslation();
   const router = useRouter();
 
@@ -37,16 +37,16 @@ function CustomDrawerContent(props: any) {
           <DrawerItem
             label="Follow Us"
             labelStyle={{ color: colors.foreground, fontSize: 16, fontWeight: "500" }}
-            icon={({ size, color }) => (
+            icon={({ size }) => (
               <Ionicons name="people-outline" size={size} color={colors.foreground} />
             )}
-            onPress={() => props.navigation.navigate("follow-us")}
+            onPress={() => router.push("/(drawer)/(tabs)/follow-us")}
           />
 
           <DrawerItem
             label="See Onboarding"
             labelStyle={{ color: colors.foreground, fontSize: 16, fontWeight: "500" }}
-            icon={({ size, color }) => (
+            icon={({ size }) => (
               <Ionicons name="information-circle-outline" size={size} color={colors.foreground} />
             )}
             onPress={() => router.push("/onboarding")}
@@ -75,7 +75,6 @@ function CustomDrawerContent(props: any) {
 export default function DrawerLayout() {
   const { colors } = useTheme();
   const { t } = useTranslation();
-  const router = useRouter();
 
   return (
     <Drawer
@@ -96,20 +95,6 @@ export default function DrawerLayout() {
           drawerIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
-        }}
-      />
-      <Drawer.Screen
-        name="follow-us"
-        options={{
-          drawerItemStyle: { display: 'none' },
-          title: "Follow Us",
-        }}
-      />
-      <Drawer.Screen
-        name="onboarding-link"
-        options={{
-          drawerItemStyle: { display: 'none' },
-          title: "Onboarding",
         }}
       />
     </Drawer>
