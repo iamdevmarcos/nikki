@@ -253,7 +253,7 @@ export default function NewNote() {
           <View className="mt-2 pb-32">
             <TextInput
               ref={contentInputRef}
-              className="text-foreground text-xl leading-relaxed text-justify tracking-[-0.3px]"
+              className="text-foreground text-xl leading-relaxed tracking-[-0.3px]"
               placeholder={t("note_editor.content_placeholder")}
               placeholderTextColor={isDark ? "#444" : "#ccc"}
               multiline
