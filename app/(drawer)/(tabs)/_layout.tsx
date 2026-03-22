@@ -91,7 +91,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="data"
         options={{
           tabBarIcon: ({ color }) => (
             <Ionicons name="server-outline" size={26} color={color} />
