@@ -52,6 +52,7 @@
     "title_placeholder": "Note title",
     "content_placeholder": "Write your note...",
     "save_success": "Saved!",
+    "empty_fields_error": "Please fill in both title and description.",
     "module_missing": "Native module not found. Please ensure you are not using Expo Go and have rebuilt the app.",
     "mic_permission_title": "Microphone Permission",
     "mic_permission_message": "Please allow microphone access to use transcription.",

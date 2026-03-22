@@ -52,6 +52,7 @@
     "title_placeholder": "Título da nota",
     "content_placeholder": "Escreva sua nota...",
     "save_success": "Salvo!",
+    "empty_fields_error": "Por favor, preencha o título e a descrição.",
     "module_missing": "Módulo nativo não encontrado. Certifique-se de que não está usando o Expo Go e que recompilou o app.",
     "mic_permission_title": "Permissão do Microfone",
     "mic_permission_message": "Por favor, permita o acesso ao microfone para usar a transcrição.",

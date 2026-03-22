@@ -6,7 +6,7 @@ export default {
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     scheme: 'nikki',
-    userInterfaceStyle: 'automatic',
+    userInterfaceStyle: 'dark',
     newArchEnabled: true,
     ios: {
       supportsTablet: true,

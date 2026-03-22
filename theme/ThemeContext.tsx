@@ -1,5 +1,5 @@
 import { useColorScheme } from "nativewind";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { View } from "react-native";
 import { colors, ColorTheme } from "./colors";
 
@@ -12,18 +12,25 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const { colorScheme } = useColorScheme();
-  const activeColorScheme = colorScheme === "dark" ? "dark" : "light";
+  const { colorScheme, setColorScheme } = useColorScheme();
+
+  useEffect(() => {
+    if (colorScheme !== "dark") {
+      setColorScheme("dark");
+    }
+  }, [colorScheme, setColorScheme]);
+
+  const activeColorScheme = "dark";
 
   return (
     <ThemeContext.Provider
       value={{
-        isDark: activeColorScheme === "dark",
-        colorScheme: activeColorScheme,
-        colors: colors[activeColorScheme],
+        isDark: true,
+        colorScheme: "dark",
+        colors: colors["dark"],
       }}
     >
-      <View style={{ flex: 1 }} className={activeColorScheme}>
+      <View style={{ flex: 1 }} className="dark">
         {children}
       </View>
     </ThemeContext.Provider>

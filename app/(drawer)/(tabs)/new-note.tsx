@@ -109,8 +109,11 @@ export default function NewNote() {
   };
 
   const handleSave = async () => {
-    if (!title.trim() && !formattedContent.trim()) {
-      handleBack();
+    if (!title.trim() || !formattedContent.trim()) {
+      Alert.alert(
+        t("common.error"),
+        t("note_editor.empty_fields_error")
+      );
       return;
     }
 

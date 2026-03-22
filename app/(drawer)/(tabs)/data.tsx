@@ -12,7 +12,7 @@ import * as Sharing from "expo-sharing";
 import { useRouter } from "expo-router";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Pressable, ScrollView, Text, View } from "react-native";
+import { Alert, Platform, Pressable, ScrollView, Text, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -61,7 +61,7 @@ const DataCard = ({
   );
 };
 
-export default function ProfileScreen() {
+export default function DataScreen() {
   const { t, i18n } = useTranslation();
   const { refreshNotes } = useNotes();
   const router = useRouter();
@@ -86,18 +86,42 @@ export default function ProfileScreen() {
 
       const jsonData = JSON.stringify(allNotes, null, 2);
       const filename = `nikki-backup-${new Date().toISOString().split('T')[0]}.json`;
-      const dir = FileSystem.documentDirectory || FileSystem.cacheDirectory || "";
-      const fileUri = `${dir}${filename}`;
 
-      await FileSystem.writeAsStringAsync(fileUri, jsonData, {
-        encoding: "utf8" as any,
-      });
+      if (Platform.OS === "android") {
+        const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+        if (!permissions.granted) {
+          return;
+        }
 
-      if (await Sharing.isAvailableAsync()) {
-        await Sharing.shareAsync(fileUri);
+        const newUri = await FileSystem.StorageAccessFramework.createFileAsync(
+          permissions.directoryUri,
+          filename,
+          "application/json"
+        );
+        
+        await FileSystem.writeAsStringAsync(newUri, jsonData, {
+          encoding: "utf8" as any,
+        });
+        
         Alert.alert(t("common.success"), t("data_backup.export_success"));
       } else {
-        Alert.alert(t("common.error"), t("data_backup.sharing_unavailable"));
+        const dir = FileSystem.documentDirectory || FileSystem.cacheDirectory || "";
+        const fileUri = `${dir}${filename}`;
+
+        await FileSystem.writeAsStringAsync(fileUri, jsonData, {
+          encoding: "utf8" as any,
+        });
+
+        if (await Sharing.isAvailableAsync()) {
+          await Sharing.shareAsync(fileUri, {
+            mimeType: "application/json",
+            dialogTitle: t("data_backup.export_title"),
+            UTI: "public.json"
+          });
+          Alert.alert(t("common.success"), t("data_backup.export_success"));
+        } else {
+          Alert.alert(t("common.error"), t("data_backup.sharing_unavailable"));
+        }
       }
     } catch (error) {
       console.error("Export error:", error);

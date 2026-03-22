@@ -2,7 +2,6 @@ import { useOAuth } from "@clerk/clerk-expo";
 import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Linking from "expo-linking";
-import { useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,11 +12,9 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
 
   const { startOAuthFlow: startGoogleFlow } = useOAuth({ strategy: "oauth_google" });
   const { startOAuthFlow: startFacebookFlow } = useOAuth({ strategy: "oauth_facebook" });
-  const { startOAuthFlow: startXFlow } = useOAuth({ strategy: "oauth_x" });
 
   const onGooglePress = useCallback(async () => {
     try {
@@ -44,19 +41,6 @@ export default function LoginScreen() {
       console.error("OAuth error", err);
     }
   }, [startFacebookFlow]);
-
-  const onXPress = useCallback(async () => {
-    try {
-      const { createdSessionId, setActive } = await startXFlow({
-        redirectUrl: Linking.createURL("/oauth-native-callback", { scheme: "nikki" }),
-      });
-      if (createdSessionId && setActive) {
-        setActive({ session: createdSessionId });
-      }
-    } catch (err) {
-      console.error("OAuth error", err);
-    }
-  }, [startXFlow]);
 
   return (
     <View style={{ flex: 1, backgroundColor: '#000000' }}>
@@ -86,7 +70,6 @@ export default function LoginScreen() {
             <View className="gap-3">
               <SocialLoginButton icon="google" text={t("login.continue_with_google")} onPress={onGooglePress} />
               <SocialLoginButton icon="facebook" text={t("login.continue_with_facebook")} onPress={onFacebookPress} />
-              <SocialLoginButton icon="x-twitter" text={t("login.continue_with_x")} onPress={onXPress} />
             </View>
 
             <View className="h-[0.5px] bg-cadet-gray my-8" />
