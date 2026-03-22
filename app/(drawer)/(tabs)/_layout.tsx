@@ -4,11 +4,11 @@ import { Tabs, useRouter } from "expo-router";
 
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const TAB_BAR_HEIGHT_IOS = 88;
 const TAB_BAR_HEIGHT_ANDROID = 70;
 const TAB_BAR_BOTTOM_OFFSET = 20;
-const TAB_BAR_HORIZONTAL_OFFSET = 20;
 
 const FAB_SIZE = 60;
 const FAB_CONTAINER_SIZE = 64;
@@ -17,6 +17,7 @@ const FAB_TOP_OFFSET = -20;
 export default function TabsLayout() {
   const { colors, isDark } = useTheme();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
@@ -29,8 +30,8 @@ export default function TabsLayout() {
           paddingBottom: Platform.OS === "ios" ? 30 : 10,
           paddingTop: 10,
           position: "absolute",
-          bottom: TAB_BAR_BOTTOM_OFFSET,
-          left: TAB_BAR_HORIZONTAL_OFFSET,
+          bottom: Platform.OS === "android" ? TAB_BAR_BOTTOM_OFFSET + insets.bottom : TAB_BAR_BOTTOM_OFFSET,
+          left: 0,
           right: 0,
           elevation: 0,
           shadowOpacity: 0,
