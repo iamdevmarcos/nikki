@@ -36,7 +36,7 @@ const LoadingScreen = ({ hideTexts }: { hideTexts?: boolean }) => {
         exiting={FadeOutUp.duration(200)}
         className="items-center flex flex-col gap-1">
         <Text className="text-white">{currentPhrase.pt}</Text>
-        <Text className="text-xs text-white">"{currentPhrase.jp}"</Text>
+        <Text className="text-xs text-white">&quot;{currentPhrase.jp}&quot;</Text>
       </Animated.View>}
     </SafeAreaView>
   );
